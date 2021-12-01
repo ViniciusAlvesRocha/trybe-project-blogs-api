@@ -1,7 +1,6 @@
 // models/users.js
 module.exports = (sequelize, DataTypes) => {
   const BlogPosts = sequelize.define('BlogPosts', {
-    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     title: DataTypes.STRING,
     content: DataTypes.STRING,
     userId: DataTypes.INTEGER,
@@ -9,13 +8,11 @@ module.exports = (sequelize, DataTypes) => {
     updated: DataTypes.STRING,
   },
   { timestamps: false });
-  BlogPosts.associate((models) => {
-    models.BlogPosts.hasMany(models.Categories, {
-      foreignKey: 'categoryId', as: 'categories',
+
+  BlogPosts.associate = (models) => {
+    BlogPosts.belongsTo(models.Users, {
+      foreignKey: 'userId', as: 'users',
     });
-    models.BlogPosts.belongsTo(models.User, {
-      foreignKey: 'userId', as: 'user',
-    });
-  });
+  };
   return BlogPosts;
 };
