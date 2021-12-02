@@ -8,8 +8,10 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
 const userRouter = require('./routers/userRouter');
+const loginRouter = require('./routers/loginRouter');
 
 app.use('/user', userRouter);
+app.use('/login', loginRouter);
 
 app.listen(3000, () => {
   // console.log(User);

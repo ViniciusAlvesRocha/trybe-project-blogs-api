@@ -1,32 +1,37 @@
-/* const messageErrorFields = { message: 'All fields must be filled' };
-const jwt = require('jsonwebtoken');
-const serviceLogin = require('../service/serviceLogin');
+const serviceUsers = require('../service/serviceUsers');
 
-const secret = 'turma11';
-
-const jwtConfig = {
-  expiresIn: '15m',
-  algorithm: 'HS256',
+const validateEmail = (req, res, next) => {
+  console.log('validateEmail');
+  const { email } = req.body;
+  if (!email) return res.status(400).json({ message: '"email" is required' });
+  if (!serviceUsers.validateEmail(email)) {
+    return res.status(400).json({ message: 'Invalid fields' });
+  }
+  next();
 };
 
-const login = async (req, res, _next) => {
-  const { email, password } = req.body;
-  const isValid = await serviceLogin.login(email, password);
-  console.log('usuário dentro da variável isValid::', isValid);
-  if (!isValid) {
-    return res.status(401).json({ message: 'Incorrect username or password' });
-  } 
+const validatePassword = (req, res, next) => {
+  const { password } = req.body;
+  if (!password) {
+    return res.status(400).json({
+      message: '"password" is required',
+    });
+  }
+  console.log('validatePassword');
+  if (!serviceUsers.validatePassword(password)) {
+    return res.status(400).json({ message: 'Invalid fields' });
+  }
+  next();
+};
 
-  const payload = {
-    user: isValid,
-  };
-
-  const token = jwt.sign(payload, secret, jwtConfig);
+const login = async (req, res) => {
+  const user = req.body;
+  const token = await serviceUsers.login(user);
   return res.status(200).json({ token });
 };
 
 module.exports = {
-  varifyEmailExistsInRequest,
+  validateEmail,
   validatePassword,
   login,
-}; */
+};

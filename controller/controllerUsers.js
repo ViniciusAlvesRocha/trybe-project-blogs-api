@@ -27,6 +27,10 @@ const validateDisplayName = (req, res, next) => {
 const validateEmail = (req, res, next) => {
   console.log('validateEmail');
   const { email } = req.body;
+  console.log('EMAIL:', email);
+  if (serviceUsers.emailIsEmpty(email)) {
+    return res.status(400).json({ message: '"email" is not allowed to be empty' });
+  }
   if (!email) return res.status(400).json({ message: '"email" is required' });
   if (!serviceUsers.validateEmail(email)) {
     return res.status(400).json({ message: '"email" must be a valid email' });
@@ -45,6 +49,9 @@ const verifyEmailExists = async (req, res, next) => {
 
 const validatePassword = (req, res, next) => {
   const { password } = req.body;
+  if (serviceUsers.passwordIsEmpty(password)) {
+    return res.status(400).json({ message: '"password" is not allowed to be empty' });
+  }
   if (!password) {
     return res.status(400).json({
       message: '"password" is required',
@@ -71,10 +78,19 @@ const create = async (req, res) => {
   return res.status(201).json({ token });
 };
 
+const login = async (req, res) => {
+  const { email, password } = req.body;
+  const token = await serviceUsers.login({ email, password }); 
+  if (!token) return res.status(400).json({ message: 'Invalid fields' });
+  
+  return res.status(200).json({ token });
+};
+
 module.exports = {
   validateDisplayName,
   validateEmail,
   verifyEmailExists,
   validatePassword,
   create,
+  login,
 };

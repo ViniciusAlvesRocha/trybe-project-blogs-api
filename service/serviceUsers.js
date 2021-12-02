@@ -1,7 +1,24 @@
+const jwt = require('jsonwebtoken');
 const { Users } = require('../models');
+const secret = 'turma11';
+
+const jwtConfig = {
+  expiresIn: '15m',
+  algorithm: 'HS256',
+};
 
 const validateDisplayName = (displayName) => {
   if (displayName.length >= 8) return true;
+  return false;
+};
+
+const emailIsEmpty = (email) => {
+  if (email === '') return true;
+  return false;
+};
+
+const passwordIsEmpty = (password) => {
+  if (password === '') return true;
   return false;
 };
 
@@ -25,8 +42,23 @@ const validatePassword = (password) => {
 
 const create = async (user) => {
   const userCreated = await Users.create(user);
-  console.log('service create', userCreated);
   return userCreated;
+};
+
+const login = async (user) => {
+  const { email, password } = user;
+  const userVerified = await Users.findOne({ where: { email, password } });
+  try {
+    console.log(userVerified);
+    const payload = {
+      email: userVerified.dataValues.email,
+      password: userVerified.dataValues.password,
+    };
+    const token = jwt.sign(payload, secret, jwtConfig);
+    return token;
+  } catch (err) {
+    return false;
+  }
 };
 
 module.exports = {
@@ -35,4 +67,7 @@ module.exports = {
   verifyEmailExists,
   validatePassword,
   create,
+  login,
+  emailIsEmpty,
+  passwordIsEmpty,
 };
