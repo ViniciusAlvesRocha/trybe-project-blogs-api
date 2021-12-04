@@ -16,4 +16,9 @@ controllerUsers.tokenExists,
 controllerUsers.tokenIsValid,
 controllerUsers.getAll);
 
+userRouter.get('/:id',
+controllerUsers.tokenExists,
+controllerUsers.tokenIsValid,
+controllerUsers.findByPk);
+
 module.exports = userRouter;

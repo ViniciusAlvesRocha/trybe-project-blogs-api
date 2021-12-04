@@ -63,6 +63,19 @@ const login = async (user) => {
 
 const getAll = async () => Users.findAll();
 
+const findByPk = async (id) => {
+  const user = await Users.findByPk(id);
+  if (user) {
+    return {
+      id: user.id,
+      displayName: user.displayName,
+      email: user.email,
+      image: user.image,
+    };
+  }
+  return false;
+};
+
 module.exports = {
   validateDisplayName,
   validateEmail,
@@ -73,4 +86,5 @@ module.exports = {
   emailIsEmpty,
   passwordIsEmpty,
   getAll,
+  findByPk,
 };

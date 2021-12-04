@@ -111,6 +111,13 @@ const getAll = async (_req, res) => {
   return res.status(200).json(users);
 };
 
+const findByPk = async (req, res) => {
+  const { id } = req.params;
+  const user = await serviceUsers.findByPk(id);
+  if (user) return res.status(200).json(user);
+  return res.status(404).json({ message: 'User does not exist' });
+};
+
 module.exports = {
   validateDisplayName,
   validateEmail,
@@ -121,4 +128,5 @@ module.exports = {
   getAll,
   tokenExists,
   tokenIsValid,
+  findByPk,
 };
