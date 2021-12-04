@@ -61,6 +61,8 @@ const login = async (user) => {
   }
 };
 
+const getAll = async () => Users.findAll();
+
 module.exports = {
   validateDisplayName,
   validateEmail,
@@ -70,4 +72,5 @@ module.exports = {
   login,
   emailIsEmpty,
   passwordIsEmpty,
+  getAll,
 };

@@ -86,6 +86,31 @@ const login = async (req, res) => {
   return res.status(200).json({ token });
 };
 
+const tokenExists = (req, res, next) => {
+  const { authorization } = req.headers;
+  if (!authorization) {
+    return res.status(401).json({ message: 'Token not found' });
+  }
+  next();
+};
+
+const tokenIsValid = (req, res, next) => {
+  const { authorization } = req.headers;
+  const isVerified = jwt.verify(authorization, secret, (error, decoded) => {
+    if (error) return false;
+    return decoded;
+  });
+  console.log('Token verificado');
+  console.log(isVerified);
+  if (!isVerified) return res.status(401).json({ message: 'Expired or invalid token' });
+  next();
+};
+
+const getAll = async (_req, res) => {
+  const users = await serviceUsers.getAll();
+  return res.status(200).json(users);
+};
+
 module.exports = {
   validateDisplayName,
   validateEmail,
@@ -93,4 +118,7 @@ module.exports = {
   validatePassword,
   create,
   login,
+  getAll,
+  tokenExists,
+  tokenIsValid,
 };

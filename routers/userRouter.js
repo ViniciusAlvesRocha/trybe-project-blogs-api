@@ -11,4 +11,9 @@ controllerUsers.verifyEmailExists,
 controllerUsers.validatePassword,
 controllerUsers.create);
 
+userRouter.get('/',
+controllerUsers.tokenExists,
+controllerUsers.tokenIsValid,
+controllerUsers.getAll);
+
 module.exports = userRouter;

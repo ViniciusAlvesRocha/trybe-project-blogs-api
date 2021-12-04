@@ -3,10 +3,16 @@
 module.exports = {
   up: async (queryInterface) => queryInterface.bulkInsert('Users', [
     {
-      displayName: 'Lewis Shamilton',
+      displayName: 'Lewis Hamilton',
       email: 'lewishamilton@gmail.com',
       password: '123456',
-      image: 'http://4.bp.blogspot.com/_YA50adQ-7vQ/S1gfR_6ufpI/AAAAAAAAAAk/1ErJGgRWZDg/S45/brett.png',
+      image: 'https://upload.wikimedia.org/wikipedia/commons/1/18/Lewis_Hamilton_2016_Malaysia_2.jpg',
+    },
+    {
+      displayName: 'Michael Schumacher',
+      email: 'MichaelSchumacher@gmail.com',
+      password: '123456',
+      image: 'https://sportbuzz.uol.com.br/media/_versions/gettyimages-52491565_widelg.jpg',
     },
   ], {}),
   down: async (queryInterface, Sequelize) => {
