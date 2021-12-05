@@ -9,7 +9,11 @@ categoryRouters.post('/',
 controllerUsers.tokenExists,
 controllerUsers.tokenIsValid,
 controllerCategories.verifyNameCategoryExists,
-controllerCategories.create,
-);
+controllerCategories.create);
 
+categoryRouters.get('/',
+controllerUsers.tokenExists,
+controllerUsers.tokenIsValid,
+controllerCategories.findAll,
+);
 module.exports = categoryRouters;
