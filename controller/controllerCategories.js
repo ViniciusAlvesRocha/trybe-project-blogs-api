@@ -17,8 +17,17 @@ const findAll = async (_req, res) => {
   return res.status(200).json(categories);
 };
 
+const verifyCategorysExistsInDatabase = async (req, res, next) => {
+  const { categoryIds } = req.body;
+  const categoriesExists = await serviceCategory.verifyCategorysExistsInDatabase(categoryIds);
+  console.log('verifyCategorysExistsInDatabase', categoriesExists);
+  if (!categoriesExists) return res.status(400).json({ message: '"categoryIds" not found' });
+  next();
+};
+
 module.exports = {
   verifyNameCategoryExists,
+  verifyCategorysExistsInDatabase,
   create,
   findAll,
 };

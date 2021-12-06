@@ -87,6 +87,7 @@ const login = async (req, res) => {
 };
 
 const tokenExists = (req, res, next) => {
+  console.log('tokenExists');
   const { authorization } = req.headers;
   if (!authorization) {
     return res.status(401).json({ message: 'Token not found' });
@@ -100,7 +101,7 @@ const tokenIsValid = (req, res, next) => {
     if (error) return false;
     return decoded;
   });
-  console.log('Token verificado');
+  console.log('tokenIsValid');
   console.log(isVerified);
   if (!isVerified) return res.status(401).json({ message: 'Expired or invalid token' });
   next();

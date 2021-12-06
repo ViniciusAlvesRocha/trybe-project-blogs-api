@@ -76,6 +76,17 @@ const findByPk = async (id) => {
   return false;
 };
 
+const getUserIdByToken = async (token) => {
+  const decoded = jwt.verify(token, secret);
+  console.log(decoded);
+  const userFinded = await Users.findOne({ where: {
+    email: decoded.email,
+    password: decoded.password,
+  } });
+  console.log(userFinded);
+  return userFinded.dataValues.id;
+};
+
 module.exports = {
   validateDisplayName,
   validateEmail,
@@ -87,4 +98,5 @@ module.exports = {
   passwordIsEmpty,
   getAll,
   findByPk,
+  getUserIdByToken,
 };
