@@ -29,9 +29,14 @@ const categoryIdExists = (req, res, next) => {
   next();
 };
 
+const getAll = async (_req, res) => {
+  console.log(await servicePost.getAll());
+};
+
 module.exports = {
   create,
   titleExists,
   contentExists,
   categoryIdExists,
+  getAll,
 };

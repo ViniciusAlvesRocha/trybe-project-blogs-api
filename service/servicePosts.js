@@ -1,4 +1,4 @@
-const { BlogPosts, PostsCategories } = require('../models');
+const { BlogPosts, Users, Categories, PostsCategories } = require('../models');
 const serviceUsers = require('./serviceUsers');
 
 const create = async (post, token) => {
@@ -23,6 +23,17 @@ const create = async (post, token) => {
   return { id, userId, title, content };
 };
 
+const getAll = async () => {
+  const result = await BlogPosts.findAll({
+    include: [
+      { model: Users, as: 'users' },
+      { model: Categories, as: 'categories' },
+    ],
+  });
+  return result;
+};
+
 module.exports = {
   create,
+  getAll,
 };
