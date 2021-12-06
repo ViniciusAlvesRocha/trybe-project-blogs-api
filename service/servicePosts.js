@@ -9,7 +9,7 @@ const create = async (post, token) => {
     title: post.title,
     content: post.content,
     userId,
-    published: new Date().toISOString(),
+    // published: new Date().toISOString(),
   });
 
   console.log(postCreated);

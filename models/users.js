@@ -1,23 +1,19 @@
-// models/users.js
-module.exports = (sequelize, DataTypes) => {
-  const Users = sequelize.define('Users', {
-    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+const User = (sequelize, DataTypes) => {
+  const UserIn = sequelize.define('Users', {
     displayName: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.STRING,
     image: DataTypes.STRING,
-    // A declaração da Foreign Key é opcional no model
-  },
-  {
-    timestamps: false,
-    tableName: 'Users',
-  });
+},
+{ timestamps: false, tableName: 'Users' });
 
-  Users.associate = (models) => {
-    Users.hasMany(models.BlogPosts, {
-      foreignKey: 'userId', as: 'users',
-    });
-  };
-  
-  return Users;
+User.associate = (models) => {
+  User.hasMany(models.BlogPost, { 
+    foreignKey: 'userId', as: 'blogPosts',
+  });
 };
+
+  return UserIn;
+};
+
+module.exports = User; 
