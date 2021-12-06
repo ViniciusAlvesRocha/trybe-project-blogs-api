@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { Users } = require('../models');
+
 const secret = 'turma11';
 
 const jwtConfig = {

@@ -14,6 +14,5 @@ controllerCategories.create);
 categoryRouters.get('/',
 controllerUsers.tokenExists,
 controllerUsers.tokenIsValid,
-controllerCategories.findAll,
-);
+controllerCategories.findAll);
 module.exports = categoryRouters;

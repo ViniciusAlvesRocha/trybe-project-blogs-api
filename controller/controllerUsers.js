@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const serviceUsers = require('../service/serviceUsers');
-const { Users } = require('../models');
+// const { Users } = require('../models');
 
 const secret = 'turma11';
 

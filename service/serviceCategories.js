@@ -11,7 +11,6 @@ const findAll = async () => {
 };
 
 const verifyCategorysExistsInDatabase = async (categoryIds) => {
-
   let result = await categoryIds.map(async (id) => Categories.findOne({ where: { id } }));
   result = await Promise.all(result).then((values) => values);
   return (result.some((item) => item !== null));
